@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  AfterViewInit,
   OnInit
 } from '@angular/core';
 
@@ -38,7 +37,7 @@ declare var System: any;
 </table>
 `,
 })
-export class JqueryDatatableComponent implements OnInit, AfterViewInit {
+export class JqueryDatatableComponent implements OnInit {
 
   constructor(private el: ElementRef) {
 
@@ -71,18 +70,13 @@ export class JqueryDatatableComponent implements OnInit, AfterViewInit {
           { 'data': 'office' },
           { 'data': 'start_date' },
           { 'data': 'salary' }
-        ]
-      });
-
-      element.on('click', '.row-btn', function () {
-        alert('已點擊(Angular2)');
+        ],
+        'createdRow': function (row, data, index) {
+          $(row).on('click', '.row-btn', function () {
+            alert(data.first_name + ' 已點擊(Angular2)');
+          });
+        }
       });
     });
   }
-
-  ngAfterViewInit() {
-
-  };
-
-
 }
