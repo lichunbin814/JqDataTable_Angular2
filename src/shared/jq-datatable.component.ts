@@ -13,27 +13,7 @@ declare var System: any;
   selector: 'app-jq-datatable',
   template: `
 <table id="example" class="display" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <th>編輯</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-    </tfoot>
+    <ng-content></ng-content>
 </table>
 `,
 })
