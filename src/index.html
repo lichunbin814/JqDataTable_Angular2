@@ -23,7 +23,13 @@
           "type": "POST"
         },
         "columns": [
-          { "data": "first_name" },
+          {
+            "data": "",
+            "render": function (data, type, row) {
+              return '<button class="row-btn">我是按鈕</button>';
+            },
+          },
+          { "data": "first_name", },
           { "data": "last_name" },
           { "data": "position" },
           { "data": "office" },
@@ -31,6 +37,10 @@
           { "data": "salary" }
         ]
       });
+
+      $("#example").on('click', '.row-btn', function () {
+        alert('已點擊');
+      })
     });
   </script>
 </head>
