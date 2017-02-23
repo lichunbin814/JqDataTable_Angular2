@@ -12,37 +12,6 @@
   <link rel="stylesheet" type="text/css" href="assets/jquery-datatables/css/jquery.dataTables.min.css">
   <script src="assets/jquery-datatables/scripts/jquery-1.12.4.js"></script>
   <script src="assets/jquery-datatables/scripts/jquery.dataTables.min.js"></script>
-
-  <script>
-    $(document).ready(function () {
-      $('#example').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-          "url": "/api/post.php",
-          "type": "POST"
-        },
-        "columns": [
-          {
-            "data": "",
-            "render": function (data, type, row) {
-              return '<button class="row-btn">我是按鈕</button>';
-            },
-          },
-          { "data": "first_name", },
-          { "data": "last_name" },
-          { "data": "position" },
-          { "data": "office" },
-          { "data": "start_date" },
-          { "data": "salary" }
-        ]
-      });
-
-      $("#example").on('click', '.row-btn', function () {
-        alert('已點擊');
-      })
-    });
-  </script>
 </head>
 
 <body>

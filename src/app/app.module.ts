@@ -1,13 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { JqueryDatatableComponent } from 'shared/jq-datatable.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    JqueryDatatableComponent
   ],
   imports: [
     BrowserModule,
