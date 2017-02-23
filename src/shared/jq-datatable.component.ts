@@ -1,13 +1,13 @@
 import {
   Component,
   ElementRef,
-  OnInit
+  OnInit,
+  Input
 } from '@angular/core';
 
 
 
-declare var $: any;
-declare var System: any;
+
 
 @Component({
   selector: 'app-jq-datatable',
@@ -18,6 +18,8 @@ declare var System: any;
 `,
 })
 export class JqueryDatatableComponent implements OnInit {
+
+  @Input() public options;
 
   constructor(private el: ElementRef) {
 
@@ -30,33 +32,7 @@ export class JqueryDatatableComponent implements OnInit {
       // 初始化DataTable
       const element = $(this.el.nativeElement.children[0]);
 
-      element.DataTable({
-        'processing': true,
-        'serverSide': true,
-        'ajax': {
-          'url': '/api/post.php',
-          'type': 'POST'
-        },
-        'columns': [
-          {
-            'data': '',
-            'render': function (data, type, row) {
-              return '<button class="row-btn">我是按鈕</button>';
-            },
-          },
-          { 'data': 'first_name', },
-          { 'data': 'last_name' },
-          { 'data': 'position' },
-          { 'data': 'office' },
-          { 'data': 'start_date' },
-          { 'data': 'salary' }
-        ],
-        'createdRow': function (row, data, index) {
-          $(row).on('click', '.row-btn', function () {
-            alert(data.first_name + ' 已點擊(Angular2)');
-          });
-        }
-      });
+      element.DataTable(this.options);
     });
   }
 }
