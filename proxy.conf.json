@@ -1,0 +1,9 @@
+{
+    "/api": {
+        "target": "https://datatables.net/examples/server_side/scripts/",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api": ""
+        }
+    }
+}
