@@ -39,7 +39,7 @@ let config: MappDataTables.Settings<ChannelNineDetailDtModel> = {
 	[{
 			targets: 0,
 			render: (data, type, row, meta) => {
-            	// 取得模版的HTML
+            	  // 自訂HTML
                 let editButtonHtml = `<button class="edit-btn">編輯</button>`
                 
                 let deleteButtonHtml =`<button class="delete-btn">刪除</button>`
