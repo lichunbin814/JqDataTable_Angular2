@@ -1,7 +1,7 @@
 # API格式
 
 | 功能 	| URL                                      	| 
-| -- | -- |
+| ---- | ---- |
 | 查詢 	| {baseUrl}/api/**{系統名稱}**/get/             	|
 | 查詢  	| {baseUrl}/api/**{系統名稱}**/get/**{ID}**             	|
 | 新增 	| {baseUrl}/api/**{系統名稱}**/create          	| 
