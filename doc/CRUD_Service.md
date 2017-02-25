@@ -38,7 +38,7 @@ ngOnInit() {
 	/**
  * Crud共用設定檔 - 通路別九宮格設定-功能性群組設定
  */
-export let curdSetting : CrudTool.BaseSetting = {
+export let curdSetting : CrudTool.BaseSetting {
 	// 組成URL的重要參數(CRUD皆會使用）
     systemName: 'MyUserInfo',
     dataKey: {
@@ -61,7 +61,7 @@ export let curdSetting : CrudTool.BaseSetting = {
  - 格式：{baseUrl}/api/**{curdSetting.SystemName}**/get/*id*
  - 實際：myApi.com/api/MyUserInfo/get/*id*
  
-> ID非必填，若有要查特定資料在傳入即可=, 詳細格式可參考最上方API格式裡的「查詢」
+> ID非必填，若有要查特定資料在傳入即可, 詳細格式可參考最上方API格式裡的「查詢」
  
 ``` js
 this.crudService.get(this.id).subscribe(data => {
@@ -102,7 +102,7 @@ this.crudService.update({
 
 透過指定的Action，决定要將「新增」或「更新」資料
 
-###### 需要新增的資料
+#### 需要新增的資料
 假如我們要新增一個SomeOne的資料，而他的主鍵（ID）為「0」或「未設定」，Merge方法判斷主鍵「沒有大於0」或「無法取得」，則會使用「新增（Create)」
 
 ```js
@@ -111,7 +111,7 @@ this.crudService.update({
   Name : "SomeOne"
 }
 ```
-###### 需要更新的資料
+#### 需要更新的資料
 假如我們要把John的所在地點改為「kaohsiung」，就可以將他的主鍵（ID）放置資料中，Merge方法判斷主鍵大於0，則會使用「更新（Update)」
 ```js
 {
@@ -121,6 +121,7 @@ this.crudService.update({
 }
 ```
 
+#### 使用方式
 ``` js
 /**
  * 依照主鍵的狀態决定要「新增」或「修改」    
