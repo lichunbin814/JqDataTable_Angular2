@@ -28,6 +28,7 @@
 }
 ```
 
+#### 初始化的方式
 ``` js
 constructor(
 	private crudService: CrudToolSerivce<ChannelNineDetail>
@@ -79,7 +80,9 @@ this.crudService.get(this.id).subscribe(data => {
 
 ``` js
 this.crudService.create({
-   data: createData
+   data: {
+       Name : 'SomeOne'
+   }
 });
 ```
 
@@ -94,7 +97,11 @@ this.crudService.create({
 
 ``` js
 this.crudService.update({
-   data: updateData
+   data: : {
+       ID : 1
+       Name : 'John',
+       Position : 'kaohsiung'       
+   }
 });
 ```
 
@@ -106,22 +113,26 @@ this.crudService.update({
 假如我們要新增一個SomeOne的資料，而他的主鍵（ID）為「0」或「未設定」，Merge方法判斷主鍵「沒有大於0」或「無法取得」，則會使用「新增（Create)」
 
 ```js
-{
-  ID : 0,
-  Name : "SomeOne"
-}
+this.crudService.merge({
+	data: {
+      ID : 0,
+      Name : "SomeOne"
+  }
+});
 ```
 #### 需要更新的資料
 假如我們要把John的所在地點改為「kaohsiung」，就可以將他的主鍵（ID）放置資料中，Merge方法判斷主鍵大於0，則會使用「更新（Update)」
 ```js
-{
-  ID : 1,
-  Name : "John",
-  Position : 'kaohsiung'
-}
+this.crudService.merge({
+	data: {
+      ID : 1,
+      Name : "John",
+      Position : 'kaohsiung'
+  }
+});
 ```
 
-#### 使用方式
+#### 說明
 ``` js
 /**
  * 依照主鍵的狀態决定要「新增」或「修改」    
@@ -137,7 +148,8 @@ this.crudService.update({
 this.crudService.merge({
 	// （非必要）可以在此自訂邏輯，依照頁面的客製需求來决定呼叫的方法
 	action: this.isAdd ? CrudTool.action.create : CrudTool.action.update,
-	data: mergeData
+  // 要「新增」或「更新」的資料
+  data: mergeData
 });
 ```
 
@@ -146,11 +158,13 @@ this.crudService.merge({
 透過共用設定檔向特定的URL，刪除資料:
 - 格式：{baseUrl}/api/**{curdSetting.SystemName}**/delete/**{curdSetting.identifier}**
 - 實際：myApi.com/api/MyUserInfo/delete/1
-  - 刪除JSON資料中ID為1，Name為John的資料
+  - 刪除JSON資料中ID為1，也就是Name為John的資料
 
 ``` js
 crudToolService.delete({
-	data: deleteData,
+	data: : {
+    ID : 1
+  },
     // 非必填，預設為original，可以使用sweetAlert (CrudTool.DisplayMode.sweetAlert）
 	displayMode: CrudTool.DisplayMode.original,
     // 成功之後要跳出的訊息
