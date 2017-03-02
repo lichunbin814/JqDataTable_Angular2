@@ -83,13 +83,13 @@ xxx.component.ts（修改後）
 })
 export XXXComponent{
 	
-	~~dataTable: any; ~~
+	~~dataTable: any;~~
 	@ViewChild(DatatableComponent) dataTable: DatatableComponent;
 
 	constructor(){
 		        $(this.ref.nativeElement).on('click', '.delete-button', function () {
             var $tr = $(this).closest('td').parents('tr');
-			~~var data: any = self.dataTable.row($tr).data();~~
+            ~~var data: any = self.dataTable.row($tr).data();~~
             var data: any = self.dataTable.target.row($tr).data();
 
             ...執行刪除功能
