@@ -1,3 +1,13 @@
+# CrudService
+
+- CRUD是由以下四種系統內常見的功能所組成
+    - **C**reate
+    - **R**ead
+    - **U**pdate
+    - **D**elete
+
+> 一定要先做完前置動作，CRUD的任一功能才能正常運作！
+
 # API格式
 
 | 功能 	| URL                                      	| 
@@ -10,15 +20,27 @@
 
 ---
 
+> 目前後台的API大同小異，差別在於「系統名稱」及「查詢的ID」，相同的邏輯以被整合至Service，至於有差異的地方，就需要你幫忙，告訴Service，想呼叫哪個「系統名稱」的API。
 
-## 初始化CRUD共用的Service
-依照上面的格式，假如我們要向某個API取得資訊時，會用以下的方式： 
+## 現有專案的修改方式
+
+由於專案內有多種CRUD的使用方式，目前也已整合為一隻Service，來做為後續系統CRUD的使用方式。
+
+
+## 前置動作
+
+**無論你要使用CRUD中的哪一項功能，皆必須要先「建立設定檔 」!**
+
+### 建立設定檔
+
+剛剛有提到API格式大致都相同，最主要只差異在「系統名稱」及「查詢的ID」，假如我們要向某個API取得資訊時： 
  - API路徑： myApi.com/api/MyUserInfo  
   - baseUrl : myApi.com  
   - 系統名稱 : MyUserInfo
   
+並預期會得到以下的結果：
+
 ###### 回傳的JSON
-預期回得到的結果
 
 ``` js
 {
@@ -28,33 +50,106 @@
 }
 ```
 
-#### 初始化的方式
+--
+
+可以先依照API回傳的結果在Angular2專案中建立ViewModel，等等在初始化設定檔時會用到
+
+###### my-user-info.ts
+
 ``` js
-constructor(
-	private crudService: CrudToolSerivce<ChannelNineDetail>
-) {
-}
-
-ngOnInit() {
-	/**
- * Crud共用設定檔 - 通路別九宮格設定-功能性群組設定
- */
-export let curdSetting : CrudTool.BaseSetting {
-	// 組成URL的重要參數(CRUD皆會使用）
-    systemName: 'MyUserInfo',
-    dataKey: {
-        // 要顯示訊息的欄位名稱 
-        // (以Delete為例，假如格式為：「{Name}你是否要刪除資料？」，就會由Json資料產生：「John你是否要刪除資料？」的訊息）
-        display: 'Name',
-        // 資料索引鍵的欄位名稱 （Update,Delete 會使用到)
-        // 此例使用JSON資料回傳的ID欄位，名稱可改成JSON中的其它欄位
-        identifier: 'ID'
-    },
-  }
-
-  this.crudForChannedlNineDetail.init(ChannelNineDetailCrudSetting);
+export class MyUserInfo {
+    /** 主索引鍵  */
+    ID: string;
+    /** 姓名  */
+    Name: string;
+    /** 位置 */
+    Position: string;
 }
 ```
+
+
+### 初始化CrudService
+
+- 當你開啟component後，只要完成以下二個個步驟，即可完成初始化
+    1. 在建構式(constructor)中加入CrudToolService的宣告並在後方指定ViewModel，並設定以下幾個參數，用途請參考範例上的註解
+        - systemName
+        - dataKey
+            - display
+            - identifier
+      2. 在Module上的providers註冊以下兩個Service
+            - CrudToolSerivce
+            - CrudToolSweetAlertSerivce
+       
+#### 1.建立設定檔並初始化
+
+###### my-user-info.component.ts
+
+``` js
+...
+import { MyUserInfo } from './my-user-info';
+import { CrudToolSerivce } from 'app/shared/tools/crudtool.service';
+
+@Component({
+    ....
+})
+export class MyUserInfoComponent implements OnInit { 
+    constructor(
+        private crudForMyUserInfo : CrudToolSerivce<MyUserInfo>
+    ) {
+    }
+
+    ngOnInit() {
+        /**
+    * Crud共用設定檔
+    */
+    let curdSetting : CrudTool.BaseSetting {
+        // 組成URL的重要參數(CRUD皆會使用）
+        systemName: 'MyUserInfo',
+        dataKey: {
+           // 要顯示訊息的欄位名稱 
+           // (以Delete為例，假如格式為：「{Name}你是否要刪除資料？」，就會由Json資料產生：「John你是否要刪除資料？」的訊息，可參考下方示意圖）
+           display: 'Name',
+            // 資料索引鍵的欄位名稱 （Update,Delete 會使用到)
+           // 此例使用JSON資料回傳的ID欄位，名稱可依API需求更改為其它名稱
+          //  修改 => {baseUrl}/api/MyUserInfo/update/{ID}
+          //  刪除 => {baseUrl}/api/MyUserInfo/delete/{ID}
+           identifier: 'ID'
+        },
+    }
+
+    this.crudForMyUserInfo.init(curdSetting);
+    }
+}
+
+```
+
+Delete示意圖：
+![Delete示意圖](./step/assets/sweet_alert_delete.png)
+
+#### 2.在NgModule上註冊需要用到的CrudService
+
+依照component的名字去尋找相對應的module，所以我們就從` my-user-info.module.ts`來加入我們的Service
+
+###### my-user-info.module.ts
+
+``` js
+
+import { CrudToolSerivce } from 'app/shared/tools/crudtool.service';
+import { CrudToolSweetAlertSerivce } from 'app/shared/tools/crudtoo-sweetalert.service';
+
+@NgModule({
+   ...
+    providers: [
+        ...
+        CrudToolSerivce,
+        // 刪除示意圖中使用的alert訊息套件
+        CrudToolSweetAlertSerivce
+    ],
+})
+export class MyUserInfoModule { }
+```
+
+## 開始使用
 
 ### Read
 

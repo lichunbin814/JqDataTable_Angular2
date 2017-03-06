@@ -271,3 +271,11 @@ export XXXComponent{
     }
 }
 ```
+
+### 如何取得前台的資料
+
+可以透過Angular2的ngModel做到雙向繫結(Two Way Binding)
+
+--
+
+待補
