@@ -6,7 +6,7 @@
     - **U**pdate
     - **D**elete
 
-> 一定要先做完前置動作，CRUD的任一功能才能正常運作！
+> 一定要先做完[前置動作](#api格式)，CRUD的任一功能才能正常運作！
 
 # API格式
 
@@ -76,9 +76,9 @@ export class MyUserInfo {
         - dataKey
             - display
             - identifier
-      2. 在Module上的providers註冊以下兩個Service
-            - CrudToolSerivce
-            - CrudToolSweetAlertSerivce
+    2. 在Module上的providers註冊以下兩個Service
+        - CrudToolSerivce
+        - CrudToolSweetAlertSerivce
        
 #### 1.建立設定檔並初始化
 
@@ -124,11 +124,12 @@ export class MyUserInfoComponent implements OnInit {
 ```
 
 Delete示意圖：
+
 ![Delete示意圖](./step/assets/sweet_alert_delete.png)
 
 #### 2.在NgModule上註冊需要用到的CrudService
 
-依照component的名字去尋找相對應的module，所以我們就從` my-user-info.module.ts`來加入我們的Service
+後台裡檔案的命名方式可以讓你依照component的名字可以找到相對應的module，那我們在改的component名稱為`my-user-ifno`，所以module就是` my-user-info.module.ts`，打開後，開始註冊需要用到的Service吧！
 
 ###### my-user-info.module.ts
 
