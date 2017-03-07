@@ -70,15 +70,12 @@ export class MyUserInfo {
 
 ### 初始化CrudService
 
-- 當你開啟component後，只要完成以下二個個步驟，即可完成初始化
+- 當你開啟component後，只要完成以下步驟，即可完成初始化
     1. 在建構式(constructor)中加入CrudToolService的宣告並在後方指定ViewModel，並設定以下幾個參數，用途請參考範例上的註解
         - systemName
         - dataKey
             - display
             - identifier
-    2. 在Module上的providers註冊以下兩個Service
-        - CrudToolSerivce
-        - CrudToolSweetAlertSerivce
        
 #### 1.建立設定檔並初始化
 
@@ -127,28 +124,6 @@ Delete示意圖：
 
 ![Delete示意圖](./step/assets/sweet_alert_delete.png)
 
-#### 2.在NgModule上註冊需要用到的CrudService
-
-後台裡檔案的命名方式可以讓你依照component的名字可以找到相對應的module，那我們在改的component名稱為`my-user-ifno`，所以module就是` my-user-info.module.ts`，打開後，開始註冊需要用到的Service吧！
-
-###### my-user-info.module.ts
-
-``` js
-
-import { CrudToolSerivce } from 'app/shared/tools/crudtool.service';
-import { CrudToolSweetAlertSerivce } from 'app/shared/tools/crudtoo-sweetalert.service';
-
-@NgModule({
-   ...
-    providers: [
-        ...
-        CrudToolSerivce,
-        // 刪除示意圖中使用的alert訊息套件
-        CrudToolSweetAlertSerivce
-    ],
-})
-export class MyUserInfoModule { }
-```
 
 ## 開始使用
 
