@@ -131,14 +131,19 @@ Delete示意圖：
 
 ![Delete示意圖](./step/assets/sweet_alert_delete.png)
 
+---
 
 ## 開始使用
 
+
 ### Read
+
+#### 使用預設的API名稱
 
 透過共用設定檔向特定的URL，取得資料:
  - 格式：{baseUrl}/api/**{curdSetting.SystemName}**/get/*id*
  - 實際：myApi.com/api/MyUserInfo/get/*id*
+ - HttpMethod : get
  
 > ID非必填，若有要查特定資料在傳入即可, 詳細格式可參考最上方API格式裡的「查詢」
  
@@ -147,6 +152,35 @@ this.crudService.get(this.id).subscribe(data => {
     // 處理資料...
 });
 ```
+
+#### 使用自訂的API名稱
+
+假如API名稱跟預設格式不相同：
+ - 自訂格式：{baseUrl}/api/**{curdSetting.SystemName}**/GetOne
+ - 預設格式：{baseUrl}/api/**{curdSetting.SystemName}**/get/*id*
+
+可以從上面的例子中發現從SystemName之後的URL格式都不一樣了，因此可以改由post方法去取得資料:
+ - HttpMethod : post
+ 
+
+
+ ``` js
+this.crudToolSerivce.post({    
+    // 實際呼叫的API：myApi.com/api/MyUserInfo/GetOne
+    apiName: 'GetOne',
+    body: {
+        // 要查詢的資料（非必要，依API需求為主）
+        ID : '777',
+        CodeNo: 'XX1'
+    }
+    }).subscribe(data => {
+        // 處理資料...
+    });
+});
+
+ ```
+
+ ---
 
 ### Create
 
